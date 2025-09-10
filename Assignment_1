@@ -1,0 +1,34 @@
+package Test_01;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import java.util.List;
+
+
+public class Assessment_01 {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://opensource-demo.orangehrmlive.com/web");
+		
+		driver.manage().window().maximize();
+		
+		Thread.sleep(5000);
+		
+		driver.findElement(By.xpath("//input[@placeholder='Username']")).sendKeys("Admin");
+		driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("admin123");
+		
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		
+        List<WebElement> inputElements = driver.findElements(By.tagName("input"));
+        System.out.println("Total number of input elements: " + inputElements.size());
+        
+        Thread.sleep(3000);
+        driver.quit();
+
+	}
+
+}
