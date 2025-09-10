@@ -1,0 +1,71 @@
+package Test_01;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
+//import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+
+public class Assignment5 {
+    
+    public static void main(String[] args) throws Exception {
+        
+        WebDriver driver = new ChromeDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
+        driver.get("https://www.irctc.co.in/");
+        driver.manage().window().maximize();
+        Thread.sleep(3000);
+        
+        try {
+            WebElement okButton = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[text()='OK' or contains(text(), 'OK')]")));
+            okButton.click();
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            System.out.println("No popup found or already dismissed");
+        }   
+     // Task 1: Select 'From' city
+        WebElement fromField = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//input[@aria-controls='pr_id_1_list']")));
+        fromField.click();
+        fromField.sendKeys("PRAYAGRAJ");
+
+        WebElement fromOption = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//ul[@id='pr_id_1_list']//li[@role='option']//span[contains(normalize-space(),'PRAYAGRAJ')]")));
+        fromOption.click();
+
+
+        // Task 2: Select 'To' city
+        WebElement toField = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//input[@aria-controls='pr_id_2_list']")));
+        toField.click();
+        toField.sendKeys("MUMBAI");
+
+        WebElement toOption = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//li[@role='option']//span[contains(text(),'MUMBAI')]")));
+        toOption.click();
+
+        
+     // Task 3: Open Calendar
+//        WebElement dateField = wait.until(ExpectedConditions.elementToBeClickable(
+//            By.xpath("//input[@class='ng-tns-c59-10 ui-inputtext ui-widget ui-state-default ui-corner-all ng-star-inserted']")));
+//        dateField.click();  
+        WebElement dateField = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//p-calendar//input[@type=\"text\"]")));
+            dateField.click(); 
+      //p-calendar//input[@type="text"]
+
+        WebElement dateToSelect = wait.until(ExpectedConditions.elementToBeClickable(
+            By.xpath("//div[contains(@class,'ui-datepicker-calendar-container')]//table//td//a[text()=\"10\"]")));
+        Thread.sleep(1000);
+        dateToSelect.click();
+
+        
+        System.out.println("All tasks completed successfully!");
+        
+        Thread.sleep(5000);
+        driver.quit();    }
+}
